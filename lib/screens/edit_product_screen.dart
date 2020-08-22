@@ -13,12 +13,25 @@ class _EditProductScreenState extends State<EditProductScreen> {
   final _imageUrlFocusNode = FocusNode();
 
   @override
+  void initState() {
+    _imageUrlFocusNode.addListener(_updateImageUrl);
+    super.initState();
+  }
+
+  @override
   void dispose() {
+    _imageUrlFocusNode.removeListener(_updateImageUrl);
     _priceFocusNode.dispose();
     _descriptionFocusNode.dispose();
     _imageUrlController.dispose();
     _imageUrlFocusNode.dispose();
     super.dispose();
+  }
+
+  void _updateImageUrl() {
+    if(!_imageUrlFocusNode.hasFocus) {
+      setState(() {});
+    }
   }
 
   @override
