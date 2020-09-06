@@ -120,7 +120,16 @@ class Products with ChangeNotifier {
   }
 
   void deleteProduct(String id) {
-    _items.removeWhere((product) => product.id == id);
+    final url = 'https://flutter-commerce-app.firebaseio.com/products/$id.json';
+    final exsistingProductIndex = _items.indexWhere((product) => product.id == id);
+    var exsistingProduct = _items[exsistingProductIndex];
+    _items.removeAt(exsistingProductIndex);
     notifyListeners();
+    http.delete(url).then((_) {
+      exsistingProduct = null;
+    }).catchError((_) {
+      _items.insert(exsistingProductIndex, exsistingProduct);
+      notifyListeners();
+    });
   }
 }
