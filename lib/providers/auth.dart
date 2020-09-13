@@ -8,7 +8,7 @@ class Auth with ChangeNotifier {
   String _userId;
 
   Future<void> signup(String email, String password) async {
-    const url = 'https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=AIzaSyCmELgEmV4auMUPh78Vmlob5sL3HiHHIAo';
+    const url = 'https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=AIzaSyCmELgEmV4auMUPh78Vmlob5sL3HiHHIAo';
     final response = await http.post(
       url,
       body: json.encode(
@@ -20,5 +20,4 @@ class Auth with ChangeNotifier {
       )
     );
   }
-
 }
